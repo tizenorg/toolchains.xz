@@ -6,6 +6,7 @@ License:	LGPLv2+
 Group:		Applications/File
 # source created as "make dist" in checked out GIT tree 
 Source0:	http://tukaani.org/%{name}/xz-%{version}.tar.bz2
+Source1001: packaging/xz.manifest 
 URL:		http://tukaani.org/%{name}/
 Requires:	%{name}-libs = %{version}-%{release}
 
@@ -53,6 +54,7 @@ commands that deal with the older LZMA format.
 %setup -q  
 
 %build
+cp %{SOURCE1001} .
 CFLAGS="%{optflags} -D_FILE_OFFSET_BITS=64" \
 CXXFLAGS="%{optflags} -D_FILE_OFFSET_BITS=64" \
 %configure --disable-static \
@@ -82,16 +84,19 @@ rm -rf %{buildroot}
 %docs_package
 
 %files 
+%manifest xz.manifest
 %defattr(-,root,root,-)
 %doc COPYING.*
 %{_bindir}/*xz*
 
 %files libs
+%manifest xz.manifest
 %defattr(-,root,root,-)
 %doc COPYING.*
 %{_libdir}/lib*.so.*
 
 %files devel
+%manifest xz.manifest
 %defattr(-,root,root,-)
 %doc AUTHORS README THANKS COPYING.* ChangeLog 
 %dir %{_includedir}/lzma
@@ -101,6 +106,7 @@ rm -rf %{buildroot}
 %{_libdir}/pkgconfig/liblzma.pc
 
 %files lzma-compat
+%manifest xz.manifest
 %defattr(-,root,root,-)
 %{_bindir}/*lz*
 
