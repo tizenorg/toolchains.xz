@@ -70,6 +70,13 @@ rm -rf %{buildroot}
 %make_install
 rm -rf %{buildroot}/%{_docdir}/%{name}
 
+# Tizen SDK license
+mkdir -p %{buildroot}/usr/share/license
+cp COPYING %{buildroot}/usr/share/license/%{name}
+cat COPYING.GPLv2 >> %{buildroot}/usr/share/license/%{name}
+cat COPYING.GPLv3 >> %{buildroot}/usr/share/license/%{name}
+cat COPYING.LGPLv2.1 >> %{buildroot}/usr/share/license/%{name}
+
 %check
 LD_LIBRARY_PATH=$PWD/src/liblzma/.libs make check
 
@@ -88,6 +95,7 @@ rm -rf %{buildroot}
 %defattr(-,root,root,-)
 %doc COPYING.*
 %{_bindir}/*xz*
+/usr/share/license/%{name}
 
 %files libs
 %manifest xz.manifest
