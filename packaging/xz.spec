@@ -82,6 +82,7 @@ rm -rf %{buildroot}
 
 %postun libs -p /sbin/ldconfig
 
+
 %docs_package
 
 %files 
